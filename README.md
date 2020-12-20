@@ -6,7 +6,7 @@ Have you ever found that working with Arrays in Javascript was a little too stra
 
 SQLizr is a utility that lets you work with Javascript arrays in a more SQL like way, by chaining From, Join, and Select objects together to form a new array based on queries from a source (or set of source) arrays. It works with arrays of objects, not primitives, so it's extra unhelpful for simple tasks.
 
-SQLizr is non-destructive to your base array, and will always return cloned representations of your objects. Use SQLizr with confidence, knowing your original data hasn't been messed with!
+SQLizr trys to be non-destructive to your base array, and will always return cloned representations of your objects where possible.
 
 And yes, Typescript definitions are included!
 
