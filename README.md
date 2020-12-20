@@ -13,13 +13,13 @@ And yes, Typescript definitions are included!
 ## Installation
 
 ```bash
-npm -i sqlizr
+npm -i array-sqlizr
 ```
 
 ## Un-installation (usually followed shortly after installation)
 
 ```bash
-npm -r sqlizr
+npm r array-sqlizr
 ```
 
 ## How to use
