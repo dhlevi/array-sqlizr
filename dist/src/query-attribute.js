@@ -7,7 +7,7 @@ var QueryAttribute = /** @class */ (function () {
     function QueryAttribute(attributeName, alias, expression) {
         if (expression === void 0) { expression = null; }
         this.attributeName = attributeName;
-        this.alias = alias;
+        this.alias = alias || attributeName;
         this.expression = expression;
     }
     return QueryAttribute;

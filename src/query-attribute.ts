@@ -8,9 +8,9 @@ export class QueryAttribute {
   public alias: string
   public expression: string | null
 
-  constructor (attributeName: string, alias: string, expression: string | null = null) {
+  constructor (attributeName: string, alias: string | null, expression: string | null = null) {
     this.attributeName = attributeName
-    this.alias = alias
+    this.alias = alias || attributeName
     this.expression = expression
   }
 }

@@ -79,7 +79,7 @@ var From = /** @class */ (function (_super) {
                     }
                 }
                 catch (err) {
-                    // failed to evaluate expression, usually a bad attribute value.
+                    // failed to evaluate expression, usually a bad attribute value, or missing attribute from a join
                     console.error(err);
                 }
             }

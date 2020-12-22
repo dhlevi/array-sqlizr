@@ -235,6 +235,59 @@ const myNewArray = SQLizr.from(people)
 */
 ```
 
+## Parsing a SQLish String
+
+You can also parse a SQLish string, instead of using the syntax above. The string parsing is still fairly basic; complex queries aren't quite supported yet, but you can do the basics. Inline queries within a string can't be done, but you can supply other parsed queries as your from, join, or union arrays. Should go without saying, but avoid using reserved words as attribute names, alias names, join identifiers, etc. or things will go weird quickly. Specifically don't use the following (case insensitive!):
+
+- SELECT
+- FROM
+- OUTER
+- INNER
+- JOIN
+- ON
+- WHERE
+- LIMIT
+- ORDER BY
+- ASC
+- DSC
+- UNION
+
+How to use the parser:
+
+```typescript
+SQLizr.parse(queryString, fromArray, [joinArrays], [unionArrays])
+```
+
+Example:
+
+```typescript
+const result = SQLizr.parse('SELECT name, boss.name AS bossName, (wages.wage * 40) AS weeklyIncome FROM employees JOIN wages ON job = title WHERE active === true LIMIT 10 ORDER BY wage ASC', employees, [wages])
+```
+
+### Select
+
+Your `select` clause can contains attribute names, aliases, and basic expressions (which must have an alias). Expressions must be wrapped in brackets.
+
+### From
+
+Can be more or less ignored, but it's nice to keep the syntax consistent. `From` will be derived by the array you pass into the parse function. The supplied name doesn't actually do anything!
+
+### Join
+
+Supply joins by specifying a join name and ON expression, like `JOIN wages ON job = title`. The name will be used as your join identifier. The expression follows a specific syntax of `fromAttribute` = `joinAttribute`. So in the example, it will match where `job` on the from array items equals `title` on the wages array items. The `=` sign is used as a delimiter, so don't leave it out!
+
+By default, Joins are outer joins, but you can specify `OUTER JOIN` for outer joins, and `INNER JOIN` to perform an inner join.
+
+The `SQLizr.parse` function will use the supplied array of arrays in the `joins` parameter. Because there's no name/id matching, it goes in order, so your first array on that parameter will be used for your first join, etc. So make sure you put things on in the correct order you need!
+
+### Where
+
+Uses a where expression. See documentation above
+
+### Unions
+
+You bet. The `SQLizr.parse` function will use the supplied array of arrays in the `unions` parameter. Works in the same way as the `joins` parameter
+
 ## Why would you release this abomination unto the world?
 
 Sometimes you spend so much time wondering if you could do something, you don't stop to wonder if you should...

@@ -7,5 +7,5 @@ export declare class QueryAttribute {
     attributeName: string;
     alias: string;
     expression: string | null;
-    constructor(attributeName: string, alias: string, expression?: string | null);
+    constructor(attributeName: string, alias: string | null, expression?: string | null);
 }

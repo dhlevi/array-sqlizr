@@ -89,7 +89,7 @@ describe('sqlizr.ts', () => {
   })
   it('Test where sort, limit', async () => {
     // string
-    const descResults = SQLizr.from(pets).where().orderByDesc('breed').limit(1).select()
+    let descResults = SQLizr.from(pets).where().orderByDesc('breed').limit(1).select()
     expect(descResults.length).toBe(1)
     expect(descResults[0].breed).toBe('Dog')
 
@@ -102,9 +102,30 @@ describe('sqlizr.ts', () => {
     ascResults = SQLizr.from(pets).where().orderByAsc('edible').limit(1).select()
     expect(ascResults.length).toBe(1)
     expect(ascResults[0].breed).toBe('Bat')
+
+    // order by expression, reversed
+    descResults = SQLizr.from(pets).where().orderBy((a, b) => { return a.age > b.age ? 1 : -1 }).select()
+    ascResults = SQLizr.from(pets).where().orderBy((a, b) => { return a.age < b.age ? 1 : -1 }, true).select()
+
+    expect(ascResults.length).toBe(3)
+    expect(ascResults[0].breed).toBe('Bat')
+    expect(descResults[0].breed).toBe(ascResults[0].breed)
   })
   it('Test union', async () => {
     const results = SQLizr.from(pets).where().union(sauce).select()
     expect(results.length).toBe(6)
+  })
+  it('Test parse', async () => {
+    const result = SQLizr.parse('SELECT name AS petName, owner.name AS ownerName, (age * 7) AS humanAge FROM pets INNER JOIN sauce ON breed = pairsWith WHERE edible === true LIMIT 1 ORDER BY breed ASC', pets, [sauce])
+
+    expect(result.length).toBe(1)
+    expect(result[0].petName).toBe('Drac')
+    expect(result[0].ownerName).toBe('Henrietta')
+  })
+  it('Test Sum, Average', async () => {
+    const sum = SQLizr.from(pets).where().sum('age')
+    const avg = SQLizr.from(pets).where().average('owner.age')
+    expect(sum).toBe(20)
+    expect(avg).toBe(50)
   })
 })

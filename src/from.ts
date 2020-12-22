@@ -75,7 +75,7 @@ export class From extends Query {
             passed.push(deepCopy(item))
           }
         } catch (err) {
-          // failed to evaluate expression, usually a bad attribute value.
+          // failed to evaluate expression, usually a bad attribute value, or missing attribute from a join
           console.error(err)
         }
       }
