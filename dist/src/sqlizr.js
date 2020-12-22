@@ -31,7 +31,7 @@ var SQLizr = /** @class */ (function () {
             .replace(/inner join/ig, '&@*INJN')
             .replace(/join/ig, '&@*JOIN')
             .replace(/where/ig, '&@*WHERE')
-            .replace(/order/ig, '&@*ORDER')
+            .replace(/order by/ig, '&@*ORDRBY')
             .replace(/limit/ig, '&@*LIMIT')
             .replace(/union/ig, '&@*UNION')
             .trim();
@@ -64,7 +64,7 @@ var SQLizr = /** @class */ (function () {
                 var limit = part.split(new RegExp('LIMIT', 'i'))[1].trim();
                 where = where.limit(parseInt(limit));
             }
-            else if (part.toUpperCase().startsWith('ORDER BY')) {
+            else if (part.toUpperCase().startsWith('ORDRBY')) {
                 var attribute = part.split(' ')[2];
                 if (part.toUpperCase().includes('ASC')) {
                     where = where.orderByAsc(attribute);
