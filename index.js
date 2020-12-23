@@ -1,4 +1,11 @@
-export { SQLizr } from "./dist/src/sqlizr";
-export { Query } from "./dist/src/query";
-export { From } from "./dist/src/from";
-export { Where } from "./dist/src/where";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Where = exports.From = exports.Query = exports.SQLizr = void 0;
+var sqlizr_1 = require("./dist/src/sqlizr");
+Object.defineProperty(exports, "SQLizr", { enumerable: true, get: function () { return sqlizr_1.SQLizr; } });
+var query_1 = require("./dist/src/query");
+Object.defineProperty(exports, "Query", { enumerable: true, get: function () { return query_1.Query; } });
+var from_1 = require("./dist/src/from");
+Object.defineProperty(exports, "From", { enumerable: true, get: function () { return from_1.From; } });
+var where_1 = require("./dist/src/where");
+Object.defineProperty(exports, "Where", { enumerable: true, get: function () { return where_1.Where; } });
