@@ -1,6 +1,6 @@
 {
   "name": "array-sqlizr",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A typescript utility that allows you to work with arrays in a SQLish way.",
   "author": {
     "name": "dhlevi"

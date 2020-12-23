@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Where = void 0;
-var tslib_1 = require("tslib");
-var query_1 = require("./query");
+import { __extends, __spreadArrays } from "tslib";
+import { Query } from './query';
 /**
  * The Where class extends Query functions. Used as the "final" stage
  * of a SQLizr query, it can sort, limit, and inject unioned data. Additional
@@ -10,7 +7,7 @@ var query_1 = require("./query");
  * @extends Query
  */
 var Where = /** @class */ (function (_super) {
-    tslib_1.__extends(Where, _super);
+    __extends(Where, _super);
     function Where() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -29,7 +26,7 @@ var Where = /** @class */ (function (_super) {
     */
     Where.prototype.orderByAsc = function (attribute) {
         var attributeName = typeof (attribute) === 'string' ? attribute : attribute.attributeName;
-        var sorted = tslib_1.__spreadArrays(this.getQueryArray()).sort(function (a, b) {
+        var sorted = __spreadArrays(this.getQueryArray()).sort(function (a, b) {
             var aVal = null;
             var bVal = null;
             if (Object.prototype.hasOwnProperty.call(a, attributeName)) {
@@ -114,6 +111,6 @@ var Where = /** @class */ (function (_super) {
         return sum / this.getQueryArray().length;
     };
     return Where;
-}(query_1.Query));
-exports.Where = Where;
+}(Query));
+export { Where };
 //# sourceMappingURL=where.js.map

@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.SQLizr = void 0;
-var tslib_1 = require("tslib");
-var from_1 = require("./from");
-var query_attribute_1 = require("./query-attribute");
+import { __spreadArrays } from "tslib";
+import { From } from "./from";
+import { QueryAttribute } from "./query-attribute";
 /**
  * Root class for SQLizr. Doesn't really do much except allow you to start
  * a "From". This class should eventually have the ability to parse a SQL
@@ -13,7 +10,7 @@ var SQLizr = /** @class */ (function () {
     function SQLizr() {
     }
     SQLizr.from = function (array) {
-        return new from_1.From(array);
+        return new From(array);
     };
     /**
      * Parse a query string. Provide the query string (in SQL style), the "From" array, and an (in order)
@@ -27,8 +24,8 @@ var SQLizr = /** @class */ (function () {
     SQLizr.parse = function (query, from, joins, unions) {
         if (joins === void 0) { joins = []; }
         if (unions === void 0) { unions = []; }
-        var reversedJoins = tslib_1.__spreadArrays(joins).reverse();
-        var reversedUnions = tslib_1.__spreadArrays(unions).reverse();
+        var reversedJoins = __spreadArrays(joins).reverse();
+        var reversedUnions = __spreadArrays(unions).reverse();
         var idxQuery = query.replace(/from/ig, '&@*FROM')
             .replace(/outer join/ig, '&@*OUTJN')
             .replace(/inner join/ig, '&@*INJN')
@@ -40,7 +37,7 @@ var SQLizr = /** @class */ (function () {
             .trim();
         var parts = idxQuery.split('&@*');
         // From... should be obvious, and we can ignore it
-        var queryFrom = new from_1.From(from);
+        var queryFrom = new From(from);
         var whereClause = '';
         // Joins
         for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
@@ -98,10 +95,10 @@ var SQLizr = /** @class */ (function () {
                     var alias = attributeAliases.length > 1 ? attributeAliases[1].trim() : attribute;
                     if (attribute.startsWith('(') && attribute.endsWith(')')) {
                         // expression parse
-                        select.push(new query_attribute_1.QueryAttribute('expression', alias, attribute.substring(1, attribute.length - 1)));
+                        select.push(new QueryAttribute('expression', alias, attribute.substring(1, attribute.length - 1)));
                     }
                     else {
-                        select.push(new query_attribute_1.QueryAttribute(attribute, alias));
+                        select.push(new QueryAttribute(attribute, alias));
                     }
                 }
                 break;
@@ -112,5 +109,5 @@ var SQLizr = /** @class */ (function () {
     };
     return SQLizr;
 }());
-exports.SQLizr = SQLizr;
+export { SQLizr };
 //# sourceMappingURL=sqlizr.js.map

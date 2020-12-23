@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryAttribute = void 0;
 /**
  * A class defining an attribute for a Query. Generally used
  * to alias an attribute from the source array data, but can also
@@ -15,5 +12,5 @@ var QueryAttribute = /** @class */ (function () {
     }
     return QueryAttribute;
 }());
-exports.QueryAttribute = QueryAttribute;
+export { QueryAttribute };
 //# sourceMappingURL=query-attribute.js.map

@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Query = void 0;
-var query_attribute_1 = require("./query-attribute");
-var expression_eval_1 = require("expression-eval");
+import { QueryAttribute } from "./query-attribute";
+import { parse, eval as expEval } from 'expression-eval';
 /**
  * Base class for From and Where object. The query class
  * accepts your array data, and can return it via the 'select' function
@@ -34,7 +31,7 @@ var Query = /** @class */ (function () {
         else {
             // if we have a string array, convert it to a QueryAttribute array
             if (typeof (attributes[0]) === 'string') {
-                attributes = attributes.map(function (attString) { return new query_attribute_1.QueryAttribute(attString, attString); });
+                attributes = attributes.map(function (attString) { return new QueryAttribute(attString, attString); });
             }
             // only return the valid attributes, and use the alias!
             return this.fromArray.map(function (item) {
@@ -48,8 +45,8 @@ var Query = /** @class */ (function () {
                     if (queryAttribute.expression) {
                         // this is a derived attribute with a calculated expression
                         try {
-                            var ast = expression_eval_1.parse(queryAttribute.expression);
-                            var result = expression_eval_1.eval(ast, item);
+                            var ast = parse(queryAttribute.expression);
+                            var result = expEval(ast, item);
                             _this.setAttribute(selectItem, alias, result);
                         }
                         catch (err) {
@@ -91,5 +88,5 @@ var Query = /** @class */ (function () {
     };
     return Query;
 }());
-exports.Query = Query;
+export { Query };
 //# sourceMappingURL=query.js.map

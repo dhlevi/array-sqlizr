@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.From = void 0;
-var tslib_1 = require("tslib");
-var deep_copy_1 = require("./deep-copy");
-var expression_eval_1 = require("expression-eval");
-var query_1 = require("./query");
-var where_1 = require("./where");
+import { __extends } from "tslib";
+import { deepCopy } from './deep-copy';
+import { parse, eval as expEval } from 'expression-eval';
+import { Query } from './query';
+import { Where } from './where';
 /**
  * The From class extends Query functionality with the ability to
  * Join arrays together. Additionally, after joins are completed
@@ -14,7 +11,7 @@ var where_1 = require("./where");
  * @extends Query
  */
 var From = /** @class */ (function (_super) {
-    tslib_1.__extends(From, _super);
+    __extends(From, _super);
     function From() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -40,7 +37,7 @@ var From = /** @class */ (function (_super) {
                 var joinItem = join_1[_b];
                 if (item[fromAttributeName] === joinItem[joinAttributeName]) {
                     foundJoin = true;
-                    var joinedItem = deep_copy_1.deepCopy(item);
+                    var joinedItem = deepCopy(item);
                     joinedItem[identifier] = {};
                     for (var att in joinItem) {
                         if (Object.prototype.hasOwnProperty.call(joinItem, att)) {
@@ -53,7 +50,7 @@ var From = /** @class */ (function (_super) {
             // If it's an outer join and we haven't found a match, we should
             // add the record with a null identifier attribute.
             if (!innerJoin && !foundJoin) {
-                var joinedItem = deep_copy_1.deepCopy(item);
+                var joinedItem = deepCopy(item);
                 joinedItem[identifier] = null;
                 joinedArray.push(joinedItem);
             }
@@ -72,13 +69,13 @@ var From = /** @class */ (function (_super) {
         if (expression === void 0) { expression = null; }
         if (expression && expression.length > 0) {
             var passed = [];
-            var ast = expression_eval_1.parse(expression);
+            var ast = parse(expression);
             for (var _i = 0, _a = this.getQueryArray(); _i < _a.length; _i++) {
                 var item = _a[_i];
                 try {
-                    var result = expression_eval_1.eval(ast, item);
+                    var result = expEval(ast, item);
                     if (result) {
-                        passed.push(deep_copy_1.deepCopy(item));
+                        passed.push(deepCopy(item));
                     }
                 }
                 catch (err) {
@@ -86,10 +83,10 @@ var From = /** @class */ (function (_super) {
                     console.error(err);
                 }
             }
-            return new where_1.Where(passed);
+            return new Where(passed);
         }
         else {
-            return new where_1.Where(this.getQueryArray());
+            return new Where(this.getQueryArray());
         }
     };
     /**
@@ -98,9 +95,9 @@ var From = /** @class */ (function (_super) {
      * @param predicate Your filter function
      */
     From.prototype.whereFilter = function (predicate) {
-        return new where_1.Where(this.getQueryArray().filter(predicate));
+        return new Where(this.getQueryArray().filter(predicate));
     };
     return From;
-}(query_1.Query));
-exports.From = From;
+}(Query));
+export { From };
 //# sourceMappingURL=from.js.map
