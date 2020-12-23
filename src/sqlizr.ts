@@ -1,6 +1,5 @@
 import { From } from "./from"
 import { QueryAttribute } from "./query-attribute"
-import { Where } from "./where"
 
 /**
  * Root class for SQLizr. Doesn't really do much except allow you to start

@@ -1,8 +1,8 @@
 import { __extends } from "tslib";
-import { deepCopy } from './deep-copy';
 import { parse, eval as expEval } from 'expression-eval';
 import { Query } from './query';
 import { Where } from './where';
+import * as deepCopy from 'ts-deepcopy';
 /**
  * The From class extends Query functionality with the ability to
  * Join arrays together. Additionally, after joins are completed
@@ -37,7 +37,7 @@ var From = /** @class */ (function (_super) {
                 var joinItem = join_1[_b];
                 if (item[fromAttributeName] === joinItem[joinAttributeName]) {
                     foundJoin = true;
-                    var joinedItem = deepCopy(item);
+                    var joinedItem = deepCopy.default(item);
                     joinedItem[identifier] = {};
                     for (var att in joinItem) {
                         if (Object.prototype.hasOwnProperty.call(joinItem, att)) {
@@ -50,7 +50,7 @@ var From = /** @class */ (function (_super) {
             // If it's an outer join and we haven't found a match, we should
             // add the record with a null identifier attribute.
             if (!innerJoin && !foundJoin) {
-                var joinedItem = deepCopy(item);
+                var joinedItem = deepCopy.default(item);
                 joinedItem[identifier] = null;
                 joinedArray.push(joinedItem);
             }
@@ -75,7 +75,7 @@ var From = /** @class */ (function (_super) {
                 try {
                     var result = expEval(ast, item);
                     if (result) {
-                        passed.push(deepCopy(item));
+                        passed.push(deepCopy.default(item));
                     }
                 }
                 catch (err) {

@@ -1,8 +1,7 @@
-import { deepCopy } from './deep-copy'
 import { parse, eval as expEval } from 'expression-eval'
 import { Query } from './query'
 import { Where } from './where'
-import { AssertPredicate } from 'assert'
+import deepCopy from "ts-deepcopy";
 
 /**
  * The From class extends Query functionality with the ability to
